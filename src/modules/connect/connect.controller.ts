@@ -23,7 +23,6 @@ export class ConnectController {
   @Get()
   @ApiOperation({ summary: '사용자의 모든 커넥트 항목 조회' })
   async findAll(): Promise<ResponseFormat<Connect[]>> {
-    // TODO 요청한 사용자의 커넥트 항목만 조회되게 수정해야 함
     return new ResponseFormat(
       HttpStatus.OK,
       await this.connectService.findAll(),

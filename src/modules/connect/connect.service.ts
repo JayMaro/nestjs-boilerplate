@@ -18,9 +18,7 @@ export class ConnectService {
   async create(createConnectDto: CreateConnectDto) {
     this.logger.info('create connect');
     const connect = Connect.of(createConnectDto);
-    // TODO adminSeq 입력 내부로 옮기기
     connect.regAdminSeq = 1;
-    // TODO adminSeq 입력 내부로 옮기기
     connect.updateAdminSeq = 1;
     await this.connectRepository.save(connect);
   }
@@ -46,7 +44,6 @@ export class ConnectService {
       throw new NotFoundException('해당 항목이 존재하지 않습니다.');
     }
     connect.update(updateConnectDto);
-    // TODO adminSeq 입력 내부로 옮기기
     connect.updateAdminSeq = 1;
     await this.connectRepository.save(connect);
   }
