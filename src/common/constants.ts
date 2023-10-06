@@ -1,0 +1,4 @@
+export const constants = {
+  DATA_SOURCE: 'DATA_SOURCE',
+  CONNECT_REPOSITORY: 'CONNECT_REPOSITORY',
+};
