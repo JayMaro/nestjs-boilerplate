@@ -7,6 +7,7 @@ import { LoggerModule } from 'nestjs-pino';
 import { Connect } from './entities/connect.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
+import { AuthModule } from './common/auth/auth.module';
 dotenv.config();
 
 @Module({
@@ -26,6 +27,7 @@ dotenv.config();
     }),
     LoggerModule.forRoot(),
     SharedModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [
