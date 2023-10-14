@@ -1,16 +1,14 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { constants } from 'src/common/constants';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Connect } from 'src/entities/connect.entity';
-import { Repository } from 'typeorm';
 import { CreateConnectDto } from './dto/create-connect.dto';
 import { UpdateConnectDto } from './dto/update-connect.dto';
 import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
+import { ConnectRepository } from './connect.repository';
 
 @Injectable()
 export class ConnectService {
   constructor(
-    @Inject(constants.CONNECT_REPOSITORY)
-    private connectRepository: Repository<Connect>,
+    private readonly connectRepository: ConnectRepository,
     @InjectPinoLogger(ConnectService.name)
     private readonly logger: PinoLogger,
   ) {}
@@ -25,16 +23,12 @@ export class ConnectService {
 
   async findOne(seq: number): Promise<Connect> {
     this.logger.info('findOne connect');
-    return await this.connectRepository.findOne({
-      where: {
-        seq: seq,
-      },
-    });
+    return await this.connectRepository.findOneBySeq(seq);
   }
 
   async findAll(): Promise<Connect[]> {
     this.logger.info('findAll connect');
-    return await this.connectRepository.find();
+    return await this.connectRepository.findAll();
   }
 
   async update(connectSeq: number, updateConnectDto: UpdateConnectDto) {
